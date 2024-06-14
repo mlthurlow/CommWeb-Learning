@@ -1,0 +1,14 @@
+{
+  "register.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "termsandconditions.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "validate_account.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  }
+}

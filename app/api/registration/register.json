@@ -1,0 +1,395 @@
+{
+  "meta": {
+    "options": {
+      "linkedFile": "/views/register.ejs",
+      "linkedForm": "register1"
+    },
+    "$_POST": [
+      {
+        "type": "text",
+        "fieldName": "first_name",
+        "options": {
+          "rules": {
+            "core:required": {}
+          }
+        },
+        "name": "first_name"
+      },
+      {
+        "type": "text",
+        "fieldName": "last_name",
+        "options": {
+          "rules": {
+            "core:required": {}
+          }
+        },
+        "name": "last_name"
+      },
+      {
+        "type": "text",
+        "fieldName": "email",
+        "options": {
+          "rules": {
+            "core:required": {},
+            "core:email": {
+              "param": ""
+            }
+          }
+        },
+        "name": "email"
+      },
+      {
+        "type": "text",
+        "fieldName": "password",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": ""
+            },
+            "core:minlength": {
+              "param": "8"
+            },
+            "core:nowhitespace": {
+              "param": ""
+            }
+          }
+        },
+        "name": "password"
+      },
+      {
+        "type": "text",
+        "fieldName": "product_id",
+        "name": "product_id"
+      },
+      {
+        "type": "text",
+        "fieldName": "product_name",
+        "name": "product_name"
+      }
+    ],
+    "$_SESSION": [
+      {
+        "type": "text",
+        "name": "regcode"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "validate",
+        "module": "validator",
+        "action": "validate",
+        "options": {
+          "data": [
+            {
+              "name": "email",
+              "value": "{{$_POST.email}}",
+              "rules": {
+                "db:notexists": {
+                  "param": {
+                    "connection": "db",
+                    "table": "user",
+                    "column": "email"
+                  },
+                  "message": "eMail already exists in database."
+                }
+              },
+              "fieldName": "email"
+            }
+          ]
+        }
+      },
+      {
+        "name": "",
+        "module": "core",
+        "action": "condition",
+        "options": {
+          "if": "{{$_POST.product_id.length()>0}}",
+          "then": {
+            "steps": {
+              "name": "unauthorised",
+              "module": "core",
+              "action": "response",
+              "options": {
+                "status": 401,
+                "data": "Unauthorised Blank"
+              }
+            }
+          }
+        },
+        "outputType": "boolean"
+      },
+      {
+        "name": "",
+        "module": "core",
+        "action": "condition",
+        "options": {
+          "if": "{{$_POST.product_name!=$_SESSION.regcode}}",
+          "then": {
+            "steps": {
+              "name": "unauthorised",
+              "module": "core",
+              "action": "response",
+              "options": {
+                "status": 401,
+                "data": "Unauthorised Session"
+              }
+            }
+          }
+        },
+        "outputType": "boolean"
+      },
+      {
+        "name": "hash",
+        "module": "crypto",
+        "action": "passwordHash",
+        "options": {
+          "password": "{{$_POST.password}}",
+          "algo": "argon2id"
+        },
+        "outputType": "text"
+      },
+      {
+        "name": "insert_user",
+        "module": "dbupdater",
+        "action": "insert",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "insert",
+            "values": [
+              {
+                "table": "user",
+                "column": "first_name",
+                "type": "text",
+                "value": "{{$_POST.first_name}}"
+              },
+              {
+                "table": "user",
+                "column": "last_name",
+                "type": "text",
+                "value": "{{$_POST.last_name}}"
+              },
+              {
+                "table": "user",
+                "column": "email",
+                "type": "text",
+                "value": "{{$_POST.email}}"
+              },
+              {
+                "table": "user",
+                "column": "password",
+                "type": "text",
+                "value": "{{hash}}"
+              }
+            ],
+            "table": "user",
+            "returning": "user_id",
+            "query": "insert into `user` (`email`, `first_name`, `last_name`, `password`) values (?, ?, ?, ?) returning `user_id`",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.first_name}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{$_POST.last_name}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{$_POST.email}}",
+                "test": ""
+              },
+              {
+                "name": ":P4",
+                "type": "expression",
+                "value": "{{hash}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "identity",
+            "type": "text"
+          },
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "name": "saltcode",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F,0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F"
+        },
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "codearray",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{saltcode.split(',')}}"
+        },
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "randomarray",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "key": "g_randomarray",
+          "value": "{{codearray.randomize()}}"
+        },
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "mycode",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "key": "g_mycode"
+        },
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "repeat",
+        "module": "core",
+        "action": "repeat",
+        "options": {
+          "repeat": 6,
+          "outputFields": [],
+          "exec": {
+            "steps": {
+              "name": "mycode",
+              "module": "core",
+              "action": "setvalue",
+              "options": {
+                "value": "{{g_mycode+randomarray[$index]}}",
+                "key": "g_mycode"
+              },
+              "meta": [],
+              "outputType": "text",
+              "output": true
+            }
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "name": "$index",
+            "type": "number"
+          },
+          {
+            "name": "$number",
+            "type": "number"
+          },
+          {
+            "name": "$name",
+            "type": "text"
+          },
+          {
+            "name": "$value",
+            "type": "object"
+          }
+        ],
+        "outputType": "array"
+      },
+      {
+        "name": "update",
+        "module": "dbupdater",
+        "action": "update",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "update",
+            "values": [
+              {
+                "table": "user",
+                "column": "auth_code",
+                "type": "text",
+                "value": "{{g_mycode}}",
+                "recid": 1
+              }
+            ],
+            "table": "user",
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "user_id",
+                  "field": "user_id",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{insert_user.identity}}",
+                  "data": {
+                    "column": "user_id"
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "returning": "user_id",
+            "query": "update `user` set `auth_code` = ? where `user_id` = ? returning `user_id`",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{g_mycode}}",
+                "test": ""
+              },
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P2",
+                "value": "{{insert_user.identity}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "name": "",
+        "module": "mail",
+        "action": "send",
+        "options": {
+          "instance": "smtp",
+          "subject": "Your Authorisation code",
+          "fromName": "Website",
+          "fromEmail": "noreplay@website.com",
+          "toName": "{{$_POST.first_name+' '+$_POST.last_name}}",
+          "toEmail": "{{$_POST.email}}",
+          "body": "Your authorisation code is: {{g_mycode}}"
+        },
+        "disabled": true
+      }
+    ]
+  },
+  "usedModules": {
+    "argon2": "^0.30.2"
+  }
+}

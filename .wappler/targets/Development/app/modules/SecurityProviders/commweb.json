@@ -1,0 +1,47 @@
+{
+  "name": "commweb",
+  "module": "auth",
+  "action": "provider",
+  "options": {
+    "secret": "4gTlOllO9PA714v",
+    "provider": "Database",
+    "connection": "db",
+    "passwordVerify": true,
+    "users": {
+      "table": "user",
+      "identity": "user_id",
+      "username": "email",
+      "password": "password"
+    },
+    "permissions": {
+      "Administrator": {
+        "table": "role",
+        "identity": "role_user_id",
+        "conditions": [
+          {
+            "column": "role",
+            "operator": "=",
+            "value": "A"
+          }
+        ]
+      },
+      "Member": {
+        "table": "role",
+        "identity": "role_user_id",
+        "conditions": [
+          {
+            "column": "role",
+            "operator": "=",
+            "value": "M"
+          }
+        ]
+      }
+    }
+  },
+  "meta": [
+    {
+      "name": "identity",
+      "type": "text"
+    }
+  ]
+}

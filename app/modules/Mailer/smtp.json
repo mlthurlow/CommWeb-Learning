@@ -1,0 +1,10 @@
+{
+  "name": "smtp",
+  "module": "mail",
+  "action": "setup",
+  "options": {
+    "username": "noreplay@",
+    "password": "mysecretpassword",
+    "useSSL": true
+  }
+}
