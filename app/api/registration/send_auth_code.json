@@ -1,0 +1,119 @@
+[
+  {
+    "name": "identity",
+    "module": "auth",
+    "action": "identify",
+    "options": {
+      "provider": "commweb"
+    },
+    "output": true,
+    "meta": []
+  },
+  {
+    "name": "query",
+    "module": "dbconnector",
+    "action": "single",
+    "options": {
+      "connection": "db",
+      "sql": {
+        "type": "select",
+        "columns": [
+          {
+            "table": "user",
+            "column": "first_name"
+          },
+          {
+            "table": "user",
+            "column": "last_name"
+          },
+          {
+            "table": "user",
+            "column": "email"
+          },
+          {
+            "table": "user",
+            "column": "auth_code"
+          }
+        ],
+        "params": [
+          {
+            "operator": "equal",
+            "type": "expression",
+            "name": ":P1",
+            "value": "{{identity}}",
+            "test": ""
+          }
+        ],
+        "table": {
+          "name": "user"
+        },
+        "primary": "user_id",
+        "joins": [],
+        "wheres": {
+          "condition": "AND",
+          "rules": [
+            {
+              "id": "user.user_id",
+              "field": "user.user_id",
+              "type": "double",
+              "operator": "equal",
+              "value": "{{identity}}",
+              "data": {
+                "table": "user",
+                "column": "user_id",
+                "type": "number",
+                "columnObj": {
+                  "type": "increments",
+                  "primary": true,
+                  "unique": false,
+                  "nullable": false,
+                  "name": "user_id"
+                }
+              },
+              "operation": "=",
+              "table": "user"
+            }
+          ],
+          "conditional": null,
+          "valid": true
+        },
+        "query": "select `first_name`, `last_name`, `email`, `auth_code` from `user` where `user`.`user_id` = ?"
+      }
+    },
+    "output": true,
+    "meta": [
+      {
+        "type": "text",
+        "name": "first_name"
+      },
+      {
+        "type": "text",
+        "name": "last_name"
+      },
+      {
+        "type": "text",
+        "name": "email"
+      },
+      {
+        "type": "text",
+        "name": "auth_code"
+      }
+    ],
+    "outputType": "object"
+  },
+  {
+    "name": "",
+    "module": "mail",
+    "action": "send",
+    "options": {
+      "instance": "smtp",
+      "subject": "Your Authorization Code",
+      "fromName": "website",
+      "fromEmail": "noreplay@visitme.co",
+      "toName": "{{query.first_name+' '+query.last_name}}",
+      "toEmail": "{{query.email}}",
+      "body": "Your authorization code is: {{query.auth_code}}"
+    },
+    "disabled": true
+  }
+]

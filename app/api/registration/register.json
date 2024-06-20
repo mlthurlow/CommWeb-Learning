@@ -227,6 +227,17 @@
         ]
       },
       {
+        "name": "identity",
+        "module": "auth",
+        "action": "login",
+        "options": {
+          "provider": "commweb",
+          "username": "{{$_POST.email}}"
+        },
+        "output": true,
+        "meta": []
+      },
+      {
         "name": "saltcode",
         "module": "core",
         "action": "setvalue",
@@ -306,6 +317,11 @@
           {
             "name": "$value",
             "type": "object"
+          },
+          {
+            "name": "mycode",
+            "type": "text",
+            "sub": []
           }
         ],
         "outputType": "array"

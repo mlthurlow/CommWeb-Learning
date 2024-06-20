@@ -1,0 +1,55 @@
+<!-- Wappler include head-page="layouts/main" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="login" appConnect="local" components="{dmxValidator:{},dmxNotifications:{},dmxBootstrap5Modal:{},dmxBrowser:{}}" -->
+<div is="dmx-browser" id="browser1"></div>
+<div class="modal" id="modal-warning" is="dmx-bs5-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p class="text-center text-warning"><i class="fas fa-exclamation-circle fa-6x"></i></p>
+                <h4 class="text-center fw-light">Unauthorized</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<dmx-notifications id="notifies1"></dmx-notifications>
+<meta name="ac:route" content="/login">
+<div class="container">
+    <form id="login1" is="dmx-serverconnect-form" method="post" action="/api/registration/login" dmx-on:unauthorized="modalwarning.show()" dmx-on:error="notifies1.danger('Danger')" dmx-on:success="browser1.goto('/',true,'Home Page')" dmx-on:forbidden="browser1.goto('/validate_account',true,'Validate Account')">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-7 col-xl-5 text-start bg-body-tertiary border border-2 rounded-2 col mt-5 pb-3 border-primary-subtle">
+                <div class="row">
+                    <div class="col">
+                        <h1>Log In</h1>
+                        <p class="text-h3">Enter your details below.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mt-4">
+                        <input type="text" id="inp_email" name="email" class="form-control" placeholder="Email" required="" data-rule-email="">
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col">
+                        <input type="password" id="inp_password" name="password" class="form-control" placeholder="Password" required="">
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="inp_remember" name="remember">
+                            <label class="form-check-label" for="inp_remember">Remember me</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col">
+                        <button id="login1_submit" class="btn bg-primary btn-primary" type="submit">Login</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

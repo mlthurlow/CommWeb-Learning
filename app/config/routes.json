@@ -20,6 +20,11 @@
       "path": "/validate_account",
       "page": "validate_account",
       "layout": "main"
+    },
+    {
+      "path": "/login",
+      "page": "login",
+      "layout": "main"
     }
   ]
 }
