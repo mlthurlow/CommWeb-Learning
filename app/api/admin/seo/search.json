@@ -1,0 +1,175 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      },
+      {
+        "type": "text",
+        "name": "filter"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "",
+        "module": "auth",
+        "action": "restrict",
+        "options": {
+          "provider": "commweb",
+          "permissions": [
+            "Administrator"
+          ],
+          "loginUrl": "/login",
+          "forbiddenUrl": "/login"
+        }
+      },
+      {
+        "name": "query",
+        "module": "dbconnector",
+        "action": "select",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "select",
+            "columns": [
+              {
+                "table": "seo",
+                "column": "*"
+              }
+            ],
+            "params": [
+              {
+                "operator": "contains",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{$_GET.filter}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "seo"
+            },
+            "primary": "seo_id",
+            "joins": [],
+            "query": "select * from `seo` where `seo`.`pagename` like ?",
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "seo.pagename",
+                  "field": "seo.pagename",
+                  "type": "string",
+                  "operator": "contains",
+                  "value": "{{$_GET.filter}}",
+                  "data": {
+                    "table": "seo",
+                    "column": "pagename",
+                    "type": "text",
+                    "columnObj": {
+                      "type": "string",
+                      "maxLength": 255,
+                      "primary": false,
+                      "unique": false,
+                      "nullable": true,
+                      "name": "pagename"
+                    }
+                  },
+                  "operation": "LIKE"
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            }
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "number",
+            "name": "seo_id"
+          },
+          {
+            "type": "text",
+            "name": "pagename"
+          },
+          {
+            "type": "text",
+            "name": "description"
+          },
+          {
+            "type": "text",
+            "name": "keywords"
+          },
+          {
+            "type": "text",
+            "name": "pagetitle"
+          },
+          {
+            "type": "text",
+            "name": "canonical"
+          },
+          {
+            "type": "text",
+            "name": "robots"
+          },
+          {
+            "type": "text",
+            "name": "og_title"
+          },
+          {
+            "type": "text",
+            "name": "og_type"
+          },
+          {
+            "type": "text",
+            "name": "og_description"
+          },
+          {
+            "type": "text",
+            "name": "og_image"
+          },
+          {
+            "type": "text",
+            "name": "og_sitename"
+          },
+          {
+            "type": "text",
+            "name": "twitter_title"
+          },
+          {
+            "type": "text",
+            "name": "twitter_description"
+          },
+          {
+            "type": "text",
+            "name": "twitter_image"
+          },
+          {
+            "type": "text",
+            "name": "twitter_sitename"
+          },
+          {
+            "type": "text",
+            "name": "twitter_creator"
+          },
+          {
+            "type": "text",
+            "name": "twitter_url"
+          },
+          {
+            "type": "text",
+            "name": "og_url"
+          }
+        ],
+        "outputType": "array"
+      }
+    ]
+  }
+}

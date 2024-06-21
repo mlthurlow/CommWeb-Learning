@@ -1,0 +1,84 @@
+<!-- Wappler include head-page="layouts/admin" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="seo" appConnect="local" components="{dmxBootstrap5TableGenerator:{}}" -->
+<dmx-serverconnect id="conn_seo" url="/api/admin/seo/search" dmx-param:filter="id_filter.value"></dmx-serverconnect>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <input id="id_filter" name="filter" type="text" class="form-control">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th>Pagename</th>
+                            <th>Description</th>
+                            <th>Keywords</th>
+                            <th>Pagetitle</th>
+                            <th>Canonical</th>
+                            <th>Robots</th>
+                            <th>Og title</th>
+                            <th>Og type</th>
+                            <th>Og description</th>
+                            <th>Og image</th>
+                            <th>Og sitename</th>
+                            <th>Twitter title</th>
+                            <th>Twitter description</th>
+                            <th>Twitter image</th>
+                            <th>Twitter sitename</th>
+                            <th>Twitter creator</th>
+                            <th>Twitter url</th>
+                            <th>Og url</th>
+                        </tr>
+                    </thead>
+                    <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="conn_seo.data.query" id="tableRepeat1">
+                        <tr>
+                            <td dmx-text="pagename"></td>
+                            <td dmx-text="description"></td>
+                            <td dmx-text="keywords"></td>
+                            <td dmx-text="pagetitle"></td>
+                            <td dmx-text="canonical"></td>
+                            <td dmx-text="robots"></td>
+                            <td dmx-text="og_title"></td>
+                            <td dmx-text="og_type"></td>
+                            <td dmx-text="og_description"></td>
+                            <td dmx-text="og_image"></td>
+                            <td dmx-text="og_sitename"></td>
+                            <td dmx-text="twitter_title"></td>
+                            <td dmx-text="twitter_description"></td>
+                            <td dmx-text="twitter_image"></td>
+                            <td dmx-text="twitter_sitename"></td>
+                            <td dmx-text="twitter_creator"></td>
+                            <td dmx-text="twitter_url"></td>
+                            <td dmx-text="og_url"></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<meta name="ac:route" content="/tmoadmin/seo">

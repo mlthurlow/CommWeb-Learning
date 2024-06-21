@@ -111,6 +111,379 @@
           }
         },
         "db": {}
+      },
+      "seo": {
+        "columns": {
+          "seo_id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "pagename": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "description": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "keywords": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "pagetitle": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "canonical": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "robots": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "og_title": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "og_type": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "og_description": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "og_image": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "og_sitename": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "twitter_title": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "twitter_description": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "twitter_image": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "twitter_sitename": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "twitter_creator": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "twitter_url": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "og_url": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          }
+        },
+        "db": {},
+        "db_changes": [
+          {
+            "recid": 6,
+            "description": "Home",
+            "__orgRec": {
+              "seo_id": 6,
+              "pagename": "/",
+              "description": "Visit Bedford",
+              "keywords": "Visit Bedford",
+              "pagetitle": "Visit Bedford",
+              "canonical": "https://visitbedford.com//",
+              "robots": null,
+              "og_title": null,
+              "og_type": "Website",
+              "og_description": "Visit Bedford",
+              "og_image": "https://visitbedford.com/assests/images/defaultimage.png",
+              "og_sitename": "Visit Bedford",
+              "twitter_title": "Visit Bedford",
+              "twitter_description": "Visit Bedford",
+              "twitter_image": "https://visitbedford.com/assests/images/defaultimage.png",
+              "twitter_sitename": "Visit Bedford",
+              "twitter_creator": null,
+              "twitter_url": "https://visitbedford.com//",
+              "og_url": "https://visitbedford.com//",
+              "recid": 6
+            }
+          },
+          {
+            "recid": 7,
+            "description": "Login",
+            "__orgRec": {
+              "seo_id": 7,
+              "pagename": "/login",
+              "description": "Visit Bedford",
+              "keywords": "Visit Bedford",
+              "pagetitle": "Visit Bedford",
+              "canonical": "https://visitbedford.com//login",
+              "robots": null,
+              "og_title": null,
+              "og_type": "Website",
+              "og_description": "Visit Bedford",
+              "og_image": "https://visitbedford.com/assests/images/defaultimage.png",
+              "og_sitename": "Visit Bedford",
+              "twitter_title": "Visit Bedford",
+              "twitter_description": "Visit Bedford",
+              "twitter_image": "https://visitbedford.com/assests/images/defaultimage.png",
+              "twitter_sitename": "Visit Bedford",
+              "twitter_creator": null,
+              "twitter_url": "https://visitbedford.com//login",
+              "og_url": "https://visitbedford.com//login",
+              "recid": 7
+            }
+          },
+          {
+            "recid": 8,
+            "description": "Register",
+            "__orgRec": {
+              "seo_id": 8,
+              "pagename": "/register",
+              "description": "Visit Bedford",
+              "keywords": "Visit Bedford",
+              "pagetitle": "Visit Bedford",
+              "canonical": "https://visitbedford.com//register",
+              "robots": null,
+              "og_title": null,
+              "og_type": "Website",
+              "og_description": "Visit Bedford",
+              "og_image": "https://visitbedford.com/assests/images/defaultimage.png",
+              "og_sitename": "Visit Bedford",
+              "twitter_title": "Visit Bedford",
+              "twitter_description": "Visit Bedford",
+              "twitter_image": "https://visitbedford.com/assests/images/defaultimage.png",
+              "twitter_sitename": "Visit Bedford",
+              "twitter_creator": null,
+              "twitter_url": "https://visitbedford.com//register",
+              "og_url": "https://visitbedford.com//register",
+              "recid": 8
+            }
+          },
+          {
+            "seo_id": 1,
+            "pagename": "/",
+            "description": "Visit Bedford",
+            "keywords": "Visit Bedford",
+            "pagetitle": "Visit Bedford",
+            "canonical": "https://visitbedford.com//",
+            "robots": null,
+            "og_title": null,
+            "og_type": "Website",
+            "og_description": "Visit Bedford",
+            "og_image": "https://visitbedford.com/assests/images/defaultimage.png",
+            "og_sitename": "Visit Bedford",
+            "twitter_title": "Visit Bedford",
+            "twitter_description": "Visit Bedford",
+            "twitter_image": "https://visitbedford.com/assests/images/defaultimage.png",
+            "twitter_sitename": "Visit Bedford",
+            "twitter_creator": null,
+            "twitter_url": "https://visitbedford.com//",
+            "og_url": "https://visitbedford.com//",
+            "recid": 1,
+            "__delRec": true
+          },
+          {
+            "seo_id": 2,
+            "pagename": "/api/registration/whoami",
+            "description": "Visit Bedford",
+            "keywords": "Visit Bedford",
+            "pagetitle": "Visit Bedford",
+            "canonical": "https://visitbedford.com//api/registration/whoami",
+            "robots": null,
+            "og_title": null,
+            "og_type": "Website",
+            "og_description": "Visit Bedford",
+            "og_image": "https://visitbedford.com/assests/images/defaultimage.png",
+            "og_sitename": "Visit Bedford",
+            "twitter_title": "Visit Bedford",
+            "twitter_description": "Visit Bedford",
+            "twitter_image": "https://visitbedford.com/assests/images/defaultimage.png",
+            "twitter_sitename": "Visit Bedford",
+            "twitter_creator": null,
+            "twitter_url": "https://visitbedford.com//api/registration/whoami",
+            "og_url": "https://visitbedford.com//api/registration/whoami",
+            "recid": 2,
+            "__delRec": true
+          },
+          {
+            "seo_id": 3,
+            "pagename": "/",
+            "description": "Visit Bedford",
+            "keywords": "Visit Bedford",
+            "pagetitle": "Visit Bedford",
+            "canonical": "https://visitbedford.com//",
+            "robots": null,
+            "og_title": null,
+            "og_type": "Website",
+            "og_description": "Visit Bedford",
+            "og_image": "https://visitbedford.com/assests/images/defaultimage.png",
+            "og_sitename": "Visit Bedford",
+            "twitter_title": "Visit Bedford",
+            "twitter_description": "Visit Bedford",
+            "twitter_image": "https://visitbedford.com/assests/images/defaultimage.png",
+            "twitter_sitename": "Visit Bedford",
+            "twitter_creator": null,
+            "twitter_url": "https://visitbedford.com//",
+            "og_url": "https://visitbedford.com//",
+            "recid": 3,
+            "__delRec": true
+          },
+          {
+            "seo_id": 4,
+            "pagename": "/login",
+            "description": "Visit Bedford",
+            "keywords": "Visit Bedford",
+            "pagetitle": "Visit Bedford",
+            "canonical": "https://visitbedford.com//login",
+            "robots": null,
+            "og_title": null,
+            "og_type": "Website",
+            "og_description": "Visit Bedford",
+            "og_image": "https://visitbedford.com/assests/images/defaultimage.png",
+            "og_sitename": "Visit Bedford",
+            "twitter_title": "Visit Bedford",
+            "twitter_description": "Visit Bedford",
+            "twitter_image": "https://visitbedford.com/assests/images/defaultimage.png",
+            "twitter_sitename": "Visit Bedford",
+            "twitter_creator": null,
+            "twitter_url": "https://visitbedford.com//login",
+            "og_url": "https://visitbedford.com//login",
+            "recid": 4,
+            "__delRec": true
+          },
+          {
+            "seo_id": 5,
+            "pagename": "/",
+            "description": "Visit Bedford",
+            "keywords": "Visit Bedford",
+            "pagetitle": "Visit Bedford",
+            "canonical": "https://visitbedford.com//",
+            "robots": null,
+            "og_title": null,
+            "og_type": "Website",
+            "og_description": "Visit Bedford",
+            "og_image": "https://visitbedford.com/assests/images/defaultimage.png",
+            "og_sitename": "Visit Bedford",
+            "twitter_title": "Visit Bedford",
+            "twitter_description": "Visit Bedford",
+            "twitter_image": "https://visitbedford.com/assests/images/defaultimage.png",
+            "twitter_sitename": "Visit Bedford",
+            "twitter_creator": null,
+            "twitter_url": "https://visitbedford.com//",
+            "og_url": "https://visitbedford.com//",
+            "recid": 5,
+            "__delRec": true
+          }
+        ],
+        "status": {
+          "data_modified": true
+        }
       }
     },
     "views": {}

@@ -6,6 +6,10 @@
     "client": "sqlite3",
     "connection": {
       "filename": "/communityweb.sqlite3"
-    }
-  }
+    },
+    "meta": {}
+  },
+  "actionFilePath": "file:///C:/Users/micah/OneDrive/TapMyOrder/Community%20Web%20Wappler/app/modules/connections/db.json",
+  "serverType": "node",
+  "fileName": "db.json"
 }

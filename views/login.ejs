@@ -16,7 +16,7 @@
 <dmx-notifications id="notifies1"></dmx-notifications>
 <meta name="ac:route" content="/login">
 <div class="container">
-    <form id="login1" is="dmx-serverconnect-form" method="post" action="/api/registration/login" dmx-on:unauthorized="modalwarning.show()" dmx-on:error="notifies1.danger('Danger')" dmx-on:success="browser1.goto('/',true,'Home Page')" dmx-on:forbidden="browser1.goto('/validate_account',true,'Validate Account')">
+    <form id="login1" is="dmx-serverconnect-form" method="post" action="/api/registration/login" dmx-on:unauthorized="modalwarning.show()" dmx-on:error="notifies1.danger('Danger')" dmx-on:success="browser1.goto('/')" dmx-on:forbidden="browser1.goto('/validate_account',true,'Validate Account')">
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-7 col-xl-5 text-start bg-body-tertiary border border-2 rounded-2 col mt-5 pb-3 border-primary-subtle">
                 <div class="row">

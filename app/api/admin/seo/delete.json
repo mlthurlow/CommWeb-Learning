@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "seo_id"
+      }
+    ],
+    "$_POST": [
+      {
+        "type": "text",
+        "name": "seo_id"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "",
+        "module": "auth",
+        "action": "restrict",
+        "options": {
+          "provider": "commweb",
+          "permissions": [
+            "Administrator"
+          ],
+          "loginUrl": "/login",
+          "forbiddenUrl": "/login"
+        }
+      },
+      {
+        "name": "delete",
+        "module": "dbupdater",
+        "action": "delete",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "delete",
+            "table": "seo",
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "seo_id",
+                  "field": "seo_id",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{$_GET.seo_id}}",
+                  "data": {
+                    "column": "seo_id"
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "returning": "seo_id",
+            "query": "delete from `seo` where `seo_id` = ?",
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{$_GET.seo_id}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
+      }
+    ]
+  }
+}

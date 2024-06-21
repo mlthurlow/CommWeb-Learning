@@ -1,0 +1,14 @@
+{
+  "adminhome.ejs": {
+    "layoutPage": "admin",
+    "description": ""
+  },
+  "admin_home.ejs": {
+    "layoutPage": "admin",
+    "description": ""
+  },
+  "seo.ejs": {
+    "layoutPage": "admin",
+    "description": ""
+  }
+}

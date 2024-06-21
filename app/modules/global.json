@@ -1,0 +1,542 @@
+{
+  "meta": {
+    "$_POST": [
+      {
+        "type": "text",
+        "name": "robots"
+      },
+      {
+        "type": "text",
+        "name": "og_title"
+      },
+      {
+        "type": "text",
+        "name": "og_image"
+      },
+      {
+        "type": "text",
+        "name": "twitter_image"
+      },
+      {
+        "type": "text",
+        "name": "twitter_sitename"
+      },
+      {
+        "type": "text",
+        "name": "twitter_creator"
+      },
+      {
+        "type": "text",
+        "name": "twitter_url"
+      }
+    ],
+    "$_SERVER": [
+      {
+        "type": "text",
+        "name": "URL"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "url_split",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_SERVER.URL.split('/')}}"
+        },
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "",
+        "options": {
+          "comment": "If the page is an api action or on the admin pages, do not add a record for SEO."
+        }
+      },
+      {
+        "name": "",
+        "module": "core",
+        "action": "condition",
+        "options": {
+          "if": "{{url_split[1]!='api'&&url_split[1]!='tmoadmin'}}",
+          "then": {
+            "steps": [
+              {
+                "name": "global_seo_query",
+                "module": "dbconnector",
+                "action": "single",
+                "options": {
+                  "connection": "db",
+                  "sql": {
+                    "type": "select",
+                    "columns": [],
+                    "params": [
+                      {
+                        "operator": "equal",
+                        "type": "expression",
+                        "name": ":P1",
+                        "value": "{{$_SERVER.URL}}",
+                        "test": ""
+                      }
+                    ],
+                    "table": {
+                      "name": "seo"
+                    },
+                    "primary": "seo_id",
+                    "joins": [],
+                    "wheres": {
+                      "condition": "AND",
+                      "rules": [
+                        {
+                          "id": "seo.pagename",
+                          "field": "seo.pagename",
+                          "type": "string",
+                          "operator": "equal",
+                          "value": "{{$_SERVER.URL}}",
+                          "data": {
+                            "table": "seo",
+                            "column": "pagename",
+                            "type": "text",
+                            "columnObj": {
+                              "type": "string",
+                              "maxLength": 255,
+                              "primary": false,
+                              "unique": false,
+                              "nullable": true,
+                              "name": "pagename"
+                            }
+                          },
+                          "operation": "="
+                        }
+                      ],
+                      "conditional": null,
+                      "valid": true
+                    },
+                    "query": "select * from `seo` where `seo`.`pagename` = ?"
+                  }
+                },
+                "output": true,
+                "meta": [
+                  {
+                    "type": "number",
+                    "name": "seo_id"
+                  },
+                  {
+                    "type": "text",
+                    "name": "pagename"
+                  },
+                  {
+                    "type": "text",
+                    "name": "description"
+                  },
+                  {
+                    "type": "text",
+                    "name": "keywords"
+                  },
+                  {
+                    "type": "text",
+                    "name": "pagetitle"
+                  },
+                  {
+                    "type": "text",
+                    "name": "canonical"
+                  },
+                  {
+                    "type": "text",
+                    "name": "robots"
+                  },
+                  {
+                    "type": "text",
+                    "name": "og_title"
+                  },
+                  {
+                    "type": "text",
+                    "name": "og_type"
+                  },
+                  {
+                    "type": "text",
+                    "name": "og_description"
+                  },
+                  {
+                    "type": "text",
+                    "name": "og_image"
+                  },
+                  {
+                    "type": "text",
+                    "name": "og_sitename"
+                  },
+                  {
+                    "type": "text",
+                    "name": "twitter_title"
+                  },
+                  {
+                    "type": "text",
+                    "name": "twitter_description"
+                  },
+                  {
+                    "type": "text",
+                    "name": "twitter_image"
+                  },
+                  {
+                    "type": "text",
+                    "name": "twitter_sitename"
+                  },
+                  {
+                    "type": "text",
+                    "name": "twitter_creator"
+                  },
+                  {
+                    "type": "text",
+                    "name": "twitter_url"
+                  },
+                  {
+                    "type": "text",
+                    "name": "og_url"
+                  }
+                ],
+                "outputType": "object"
+              },
+              {
+                "name": "",
+                "module": "core",
+                "action": "condition",
+                "options": {
+                  "if": "{{global_seo_query}}",
+                  "then": {
+                    "steps": {
+                      "name": "",
+                      "options": {
+                        "comment": "have tags"
+                      }
+                    }
+                  },
+                  "else": {
+                    "steps": [
+                      {
+                        "name": "insert",
+                        "module": "dbupdater",
+                        "action": "insert",
+                        "options": {
+                          "connection": "db",
+                          "sql": {
+                            "type": "insert",
+                            "values": [
+                              {
+                                "table": "seo",
+                                "column": "pagename",
+                                "type": "text",
+                                "value": "{{$_SERVER.URL}}"
+                              },
+                              {
+                                "table": "seo",
+                                "column": "description",
+                                "type": "text",
+                                "value": "Visit Bedford"
+                              },
+                              {
+                                "table": "seo",
+                                "column": "keywords",
+                                "type": "text",
+                                "value": "Visit Bedford"
+                              },
+                              {
+                                "table": "seo",
+                                "column": "pagetitle",
+                                "type": "text",
+                                "value": "Visit Bedford"
+                              },
+                              {
+                                "table": "seo",
+                                "column": "canonical",
+                                "type": "text",
+                                "value": "{{'https://visitbedford.com/'+$_SERVER.URL}}"
+                              },
+                              {
+                                "table": "seo",
+                                "column": "robots",
+                                "type": "text",
+                                "value": "{{$_POST.robots}}"
+                              },
+                              {
+                                "table": "seo",
+                                "column": "og_title",
+                                "type": "text",
+                                "value": "{{$_POST.og_title}}"
+                              },
+                              {
+                                "table": "seo",
+                                "column": "og_type",
+                                "type": "text",
+                                "value": "Website"
+                              },
+                              {
+                                "table": "seo",
+                                "column": "og_description",
+                                "type": "text",
+                                "value": "Visit Bedford"
+                              },
+                              {
+                                "table": "seo",
+                                "column": "og_image",
+                                "type": "text",
+                                "value": "https://visitbedford.com/assests/images/defaultimage.png"
+                              },
+                              {
+                                "table": "seo",
+                                "column": "og_sitename",
+                                "type": "text",
+                                "value": "Visit Bedford"
+                              },
+                              {
+                                "table": "seo",
+                                "column": "twitter_title",
+                                "type": "text",
+                                "value": "Visit Bedford"
+                              },
+                              {
+                                "table": "seo",
+                                "column": "twitter_description",
+                                "type": "text",
+                                "value": "Visit Bedford"
+                              },
+                              {
+                                "table": "seo",
+                                "column": "twitter_image",
+                                "type": "text",
+                                "value": "https://visitbedford.com/assests/images/defaultimage.png"
+                              },
+                              {
+                                "table": "seo",
+                                "column": "twitter_sitename",
+                                "type": "text",
+                                "value": "Visit Bedford"
+                              },
+                              {
+                                "table": "seo",
+                                "column": "twitter_creator",
+                                "type": "text",
+                                "value": "{{$_POST.twitter_creator}}"
+                              },
+                              {
+                                "table": "seo",
+                                "column": "twitter_url",
+                                "type": "text",
+                                "value": "{{'https://visitbedford.com/'+$_SERVER.URL}}"
+                              },
+                              {
+                                "table": "seo",
+                                "column": "og_url",
+                                "type": "text",
+                                "value": "{{'https://visitbedford.com/'+$_SERVER.URL}}"
+                              }
+                            ],
+                            "table": "seo",
+                            "returning": "seo_id",
+                            "query": "insert into `seo` (`canonical`, `description`, `keywords`, `og_description`, `og_image`, `og_sitename`, `og_title`, `og_type`, `og_url`, `pagename`, `pagetitle`, `robots`, `twitter_creator`, `twitter_description`, `twitter_image`, `twitter_sitename`, `twitter_title`, `twitter_url`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) returning `seo_id`",
+                            "params": [
+                              {
+                                "name": ":P1",
+                                "type": "expression",
+                                "value": "{{$_SERVER.URL}}",
+                                "test": ""
+                              },
+                              {
+                                "name": ":P2",
+                                "type": "expression",
+                                "value": "{{'https://visitbedford.com/'+$_SERVER.URL}}",
+                                "test": ""
+                              },
+                              {
+                                "name": ":P3",
+                                "type": "expression",
+                                "value": "{{$_POST.robots}}",
+                                "test": ""
+                              },
+                              {
+                                "name": ":P4",
+                                "type": "expression",
+                                "value": "{{$_POST.og_title}}",
+                                "test": ""
+                              },
+                              {
+                                "name": ":P5",
+                                "type": "expression",
+                                "value": "{{$_POST.twitter_creator}}",
+                                "test": ""
+                              },
+                              {
+                                "name": ":P6",
+                                "type": "expression",
+                                "value": "{{'https://visitbedford.com/'+$_SERVER.URL}}",
+                                "test": ""
+                              },
+                              {
+                                "name": ":P7",
+                                "type": "expression",
+                                "value": "{{'https://visitbedford.com/'+$_SERVER.URL}}",
+                                "test": ""
+                              }
+                            ]
+                          }
+                        },
+                        "meta": [
+                          {
+                            "name": "identity",
+                            "type": "text"
+                          },
+                          {
+                            "name": "affected",
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "global_seo_query",
+                        "module": "dbconnector",
+                        "action": "single",
+                        "options": {
+                          "connection": "db",
+                          "sql": {
+                            "type": "select",
+                            "columns": [],
+                            "params": [
+                              {
+                                "operator": "equal",
+                                "type": "expression",
+                                "name": ":P1",
+                                "value": "{{$_SERVER.URL}}",
+                                "test": ""
+                              }
+                            ],
+                            "table": {
+                              "name": "seo"
+                            },
+                            "primary": "seo_id",
+                            "joins": [],
+                            "wheres": {
+                              "condition": "AND",
+                              "rules": [
+                                {
+                                  "id": "seo.pagename",
+                                  "field": "seo.pagename",
+                                  "type": "string",
+                                  "operator": "equal",
+                                  "value": "{{$_SERVER.URL}}",
+                                  "data": {
+                                    "table": "seo",
+                                    "column": "pagename",
+                                    "type": "text",
+                                    "columnObj": {
+                                      "type": "string",
+                                      "maxLength": 255,
+                                      "primary": false,
+                                      "unique": false,
+                                      "nullable": true,
+                                      "name": "pagename"
+                                    }
+                                  },
+                                  "operation": "="
+                                }
+                              ],
+                              "conditional": null,
+                              "valid": true
+                            },
+                            "query": "select * from `seo` where `seo`.`pagename` = ?"
+                          }
+                        },
+                        "output": true,
+                        "meta": [
+                          {
+                            "type": "number",
+                            "name": "seo_id"
+                          },
+                          {
+                            "type": "text",
+                            "name": "pagename"
+                          },
+                          {
+                            "type": "text",
+                            "name": "description"
+                          },
+                          {
+                            "type": "text",
+                            "name": "keywords"
+                          },
+                          {
+                            "type": "text",
+                            "name": "pagetitle"
+                          },
+                          {
+                            "type": "text",
+                            "name": "canonical"
+                          },
+                          {
+                            "type": "text",
+                            "name": "robots"
+                          },
+                          {
+                            "type": "text",
+                            "name": "og_title"
+                          },
+                          {
+                            "type": "text",
+                            "name": "og_type"
+                          },
+                          {
+                            "type": "text",
+                            "name": "og_description"
+                          },
+                          {
+                            "type": "text",
+                            "name": "og_image"
+                          },
+                          {
+                            "type": "text",
+                            "name": "og_sitename"
+                          },
+                          {
+                            "type": "text",
+                            "name": "twitter_title"
+                          },
+                          {
+                            "type": "text",
+                            "name": "twitter_description"
+                          },
+                          {
+                            "type": "text",
+                            "name": "twitter_image"
+                          },
+                          {
+                            "type": "text",
+                            "name": "twitter_sitename"
+                          },
+                          {
+                            "type": "text",
+                            "name": "twitter_creator"
+                          },
+                          {
+                            "type": "text",
+                            "name": "twitter_url"
+                          },
+                          {
+                            "type": "text",
+                            "name": "og_url"
+                          }
+                        ],
+                        "outputType": "object"
+                      }
+                    ]
+                  }
+                },
+                "outputType": "boolean"
+              }
+            ]
+          }
+        },
+        "outputType": "boolean"
+      }
+    ]
+  }
+}

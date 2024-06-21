@@ -14,5 +14,9 @@
   "login.ejs": {
     "layoutPage": "main",
     "description": ""
+  },
+  "admin.ejs": {
+    "layoutPage": "main",
+    "description": ""
   }
 }

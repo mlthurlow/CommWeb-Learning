@@ -25,6 +25,21 @@
       "path": "/login",
       "page": "login",
       "layout": "main"
+    },
+    {
+      "path": "/tmoadmin",
+      "page": "tmoadmin/admin_home",
+      "layout": "admin"
+    },
+    {
+      "path": "/tmoadmin/seo",
+      "page": "tmoadmin/seo",
+      "layout": "admin"
     }
-  ]
+  ],
+  "layouts": {
+    "admin": {
+      "exec": "/api/Security/isadmin"
+    }
+  }
 }
