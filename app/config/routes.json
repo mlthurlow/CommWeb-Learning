@@ -35,6 +35,11 @@
       "path": "/tmoadmin/seo",
       "page": "tmoadmin/seo",
       "layout": "admin"
+    },
+    {
+      "path": "/tmoadmin/manage_users",
+      "page": "tmoadmin/manage_users",
+      "layout": "admin"
     }
   ],
   "layouts": {

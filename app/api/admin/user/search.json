@@ -1,0 +1,207 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      },
+      {
+        "type": "text",
+        "name": "filter"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "",
+        "module": "auth",
+        "action": "restrict",
+        "options": {
+          "provider": "commweb",
+          "permissions": [
+            "Administrator"
+          ],
+          "loginUrl": "/login",
+          "forbiddenUrl": "/login"
+        }
+      },
+      {
+        "name": "query",
+        "module": "dbconnector",
+        "action": "select",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "select",
+            "columns": [
+              {
+                "table": "user",
+                "column": "first_name"
+              },
+              {
+                "table": "user",
+                "column": "last_name"
+              },
+              {
+                "table": "user",
+                "column": "email"
+              },
+              {
+                "table": "user",
+                "column": "date_signup"
+              },
+              {
+                "table": "user",
+                "column": "auth_code"
+              },
+              {
+                "table": "user",
+                "column": "validated"
+              },
+              {
+                "table": "user",
+                "column": "user_id"
+              }
+            ],
+            "params": [
+              {
+                "operator": "contains",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{$_GET.filter}}",
+                "test": ""
+              },
+              {
+                "operator": "contains",
+                "type": "expression",
+                "name": ":P2",
+                "value": "{{$_GET.filter}}",
+                "test": ""
+              },
+              {
+                "operator": "contains",
+                "type": "expression",
+                "name": ":P3",
+                "value": "{{$_GET.filter}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "user"
+            },
+            "primary": "user_id",
+            "joins": [],
+            "query": "select `first_name`, `last_name`, `email`, `date_signup`, `auth_code`, `validated`, `user_id` from `user` where `user`.`first_name` like ? or `user`.`last_name` like ? or `user`.`email` like ?",
+            "wheres": {
+              "condition": "OR",
+              "rules": [
+                {
+                  "id": "user.first_name",
+                  "field": "user.first_name",
+                  "type": "string",
+                  "operator": "contains",
+                  "value": "{{$_GET.filter}}",
+                  "data": {
+                    "table": "user",
+                    "column": "first_name",
+                    "type": "text",
+                    "columnObj": {
+                      "type": "string",
+                      "maxLength": 255,
+                      "primary": false,
+                      "unique": false,
+                      "nullable": true,
+                      "name": "first_name"
+                    }
+                  },
+                  "operation": "LIKE"
+                },
+                {
+                  "id": "user.last_name",
+                  "field": "user.last_name",
+                  "type": "string",
+                  "operator": "contains",
+                  "value": "{{$_GET.filter}}",
+                  "data": {
+                    "table": "user",
+                    "column": "last_name",
+                    "type": "text",
+                    "columnObj": {
+                      "type": "string",
+                      "maxLength": 255,
+                      "primary": false,
+                      "unique": false,
+                      "nullable": true,
+                      "name": "last_name"
+                    }
+                  },
+                  "operation": "LIKE"
+                },
+                {
+                  "id": "user.email",
+                  "field": "user.email",
+                  "type": "string",
+                  "operator": "contains",
+                  "value": "{{$_GET.filter}}",
+                  "data": {
+                    "table": "user",
+                    "column": "email",
+                    "type": "text",
+                    "columnObj": {
+                      "type": "string",
+                      "maxLength": 255,
+                      "primary": false,
+                      "unique": false,
+                      "nullable": true,
+                      "name": "email"
+                    }
+                  },
+                  "operation": "LIKE"
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            }
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "text",
+            "name": "first_name"
+          },
+          {
+            "type": "text",
+            "name": "last_name"
+          },
+          {
+            "type": "text",
+            "name": "email"
+          },
+          {
+            "type": "datetime",
+            "name": "date_signup"
+          },
+          {
+            "type": "text",
+            "name": "auth_code"
+          },
+          {
+            "type": "datetime",
+            "name": "validated"
+          },
+          {
+            "type": "number",
+            "name": "user_id"
+          }
+        ],
+        "outputType": "array"
+      }
+    ]
+  }
+}

@@ -10,5 +10,9 @@
   "seo.ejs": {
     "layoutPage": "admin",
     "description": ""
+  },
+  "manage_users.ejs": {
+    "layoutPage": "admin",
+    "description": ""
   }
 }

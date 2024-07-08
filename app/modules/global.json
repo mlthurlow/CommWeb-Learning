@@ -251,7 +251,7 @@
                                 "table": "seo",
                                 "column": "canonical",
                                 "type": "text",
-                                "value": "{{'https://visitbedford.com/'+$_SERVER.URL}}"
+                                "value": "{{'https://visitbedford.com'+$_SERVER.URL}}"
                               },
                               {
                                 "table": "seo",
@@ -323,13 +323,13 @@
                                 "table": "seo",
                                 "column": "twitter_url",
                                 "type": "text",
-                                "value": "{{'https://visitbedford.com/'+$_SERVER.URL}}"
+                                "value": "{{'https://visitbedford.com'+$_SERVER.URL}}{{'https://visitbedford.com'+$_SERVER.URL}}"
                               },
                               {
                                 "table": "seo",
                                 "column": "og_url",
                                 "type": "text",
-                                "value": "{{'https://visitbedford.com/'+$_SERVER.URL}}"
+                                "value": "{{'https://visitbedford.com'+$_SERVER.URL}}"
                               }
                             ],
                             "table": "seo",
@@ -345,7 +345,7 @@
                               {
                                 "name": ":P2",
                                 "type": "expression",
-                                "value": "{{'https://visitbedford.com/'+$_SERVER.URL}}",
+                                "value": "{{'https://visitbedford.com'+$_SERVER.URL}}",
                                 "test": ""
                               },
                               {
@@ -369,13 +369,13 @@
                               {
                                 "name": ":P6",
                                 "type": "expression",
-                                "value": "{{'https://visitbedford.com/'+$_SERVER.URL}}",
+                                "value": "{{'https://visitbedford.com'+$_SERVER.URL}}{{'https://visitbedford.com'+$_SERVER.URL}}",
                                 "test": ""
                               },
                               {
                                 "name": ":P7",
                                 "type": "expression",
-                                "value": "{{'https://visitbedford.com/'+$_SERVER.URL}}",
+                                "value": "{{'https://visitbedford.com'+$_SERVER.URL}}",
                                 "test": ""
                               }
                             ]

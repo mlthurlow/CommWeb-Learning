@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "filter"
+      },
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "",
+        "module": "auth",
+        "action": "restrict",
+        "options": {
+          "provider": "commweb",
+          "permissions": [
+            "Administrator"
+          ],
+          "loginUrl": "/login",
+          "forbiddenUrl": "/login"
+        }
+      },
+      {
+        "name": "query",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "select",
+            "columns": [
+              {
+                "table": "role",
+                "column": "role_id"
+              },
+              {
+                "table": "role",
+                "column": "role_user_id"
+              },
+              {
+                "table": "role",
+                "column": "role"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{$_GET.filter}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "role"
+            },
+            "primary": "role_id",
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "role.role_id",
+                  "field": "role.role_id",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{$_GET.filter}}",
+                  "data": {
+                    "table": "role",
+                    "column": "role_id",
+                    "type": "number",
+                    "columnObj": {
+                      "type": "increments",
+                      "primary": true,
+                      "unique": false,
+                      "nullable": false,
+                      "name": "role_id"
+                    }
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select `role_id`, `role_user_id`, `role` from `role` where `role`.`role_id` = ?"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "number",
+            "name": "role_id"
+          },
+          {
+            "type": "text",
+            "name": "role_user_id"
+          },
+          {
+            "type": "text",
+            "name": "role"
+          }
+        ],
+        "outputType": "object"
+      }
+    ]
+  }
+}

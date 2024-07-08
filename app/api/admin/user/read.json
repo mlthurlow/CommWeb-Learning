@@ -1,0 +1,150 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "user_id"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "",
+        "module": "auth",
+        "action": "restrict",
+        "options": {
+          "provider": "commweb",
+          "permissions": [
+            "Administrator"
+          ],
+          "loginUrl": "/login",
+          "forbiddenUrl": "/login"
+        }
+      },
+      {
+        "name": "query",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "select",
+            "columns": [
+              {
+                "table": "user",
+                "column": "user_id",
+                "recid": 1
+              },
+              {
+                "table": "user",
+                "column": "first_name",
+                "recid": 2
+              },
+              {
+                "table": "user",
+                "column": "last_name",
+                "recid": 3
+              },
+              {
+                "table": "user",
+                "column": "email",
+                "recid": 4
+              },
+              {
+                "table": "user",
+                "column": "date_signup",
+                "recid": 5
+              },
+              {
+                "table": "user",
+                "column": "auth_code",
+                "recid": 6
+              },
+              {
+                "table": "user",
+                "column": "validated",
+                "recid": 7
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{$_GET.user_id}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "user"
+            },
+            "primary": "user_id",
+            "joins": [],
+            "query": "select `user_id`, `first_name`, `last_name`, `email`, `date_signup`, `auth_code`, `validated` from `user` where `user`.`user_id` = ?",
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "user.user_id",
+                  "field": "user.user_id",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{$_GET.user_id}}",
+                  "data": {
+                    "table": "user",
+                    "column": "user_id",
+                    "type": "number",
+                    "columnObj": {
+                      "type": "increments",
+                      "primary": true,
+                      "unique": false,
+                      "nullable": false,
+                      "name": "user_id"
+                    }
+                  },
+                  "operation": "=",
+                  "table": "user"
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            }
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "number",
+            "name": "user_id"
+          },
+          {
+            "type": "text",
+            "name": "first_name"
+          },
+          {
+            "type": "text",
+            "name": "last_name"
+          },
+          {
+            "type": "text",
+            "name": "email"
+          },
+          {
+            "type": "datetime",
+            "name": "date_signup"
+          },
+          {
+            "type": "text",
+            "name": "auth_code"
+          },
+          {
+            "type": "datetime",
+            "name": "validated"
+          }
+        ],
+        "outputType": "object"
+      }
+    ]
+  }
+}

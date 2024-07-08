@@ -1,4 +1,150 @@
-<!-- Wappler include head-page="layouts/admin" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="seo" appConnect="local" components="{dmxBootstrap5TableGenerator:{}}" -->
+<!-- Wappler include head-page="layouts/admin" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="seo" appConnect="local" components="{dmxBootstrap5TableGenerator:{},dmxTyped:{},dmxBootstrap5Modal:{},dmxNotifications:{}}" -->
+<dmx-notifications id="notifies1"></dmx-notifications>
+<div class="modal" id="modal_edit" is="dmx-bs5-modal" tabindex="-1" dmx-on:hide-bs-modal="serverconnectform1.reset()">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header text-white bg-success">
+                <h5 class="modal-title">Edit SEO Parameters</h5>
+                <button type="button" class="btn-close bg-transparent" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <form is="dmx-serverconnect-form" id="form_seo_edit" method="post" action="/api/admin/seo/update" dmx-generator="bootstrap5" dmx-form-type="horizontal" dmx-populate="conn_single_seo.data.query" dmx-on:success="serverconnectform1.reset();modal_edit.hide();notifies1.success('Record Updated!');conn_seo.load({})">
+                                <div class="form-group mb-3 row">
+                                    <label for="inp_seo_id" class="col-sm-2 col-form-label">Seo ID</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="inp_seo_id" name="seo_id" dmx-bind:value="conn_single_seo.data.query.seo_id" aria-describedby="inp_seo_id_help" placeholder="Enter Seo" readonly="true">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <label for="inp_pagename" class="col-sm-2 col-form-label">Pagename</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inp_pagename" name="pagename" dmx-bind:value="conn_single_seo.data.query.pagename" aria-describedby="inp_pagename_help" placeholder="Enter Pagename">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <label for="inp_description" class="col-sm-2 col-form-label">Description</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inp_description" name="description" dmx-bind:value="conn_single_seo.data.query.description" aria-describedby="inp_description_help" placeholder="Enter Description">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <label for="inp_keywords" class="col-sm-2 col-form-label">Keywords</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inp_keywords" name="keywords" dmx-bind:value="conn_single_seo.data.query.keywords" aria-describedby="inp_keywords_help" placeholder="Enter Keywords">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <label for="inp_pagetitle" class="col-sm-2 col-form-label">Pagetitle</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inp_pagetitle" name="pagetitle" dmx-bind:value="conn_single_seo.data.query.pagetitle" aria-describedby="inp_pagetitle_help" placeholder="Enter Pagetitle">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <label for="inp_canonical" class="col-sm-2 col-form-label">Canonical</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inp_canonical" name="canonical" dmx-bind:value="conn_single_seo.data.query.canonical" aria-describedby="inp_canonical_help" placeholder="Enter Canonical">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <label for="inp_robots" class="col-sm-2 col-form-label">Robots</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inp_robots" name="robots" dmx-bind:value="conn_single_seo.data.query.robots" aria-describedby="inp_robots_help" placeholder="Enter Robots">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <label for="inp_og_title" class="col-sm-2 col-form-label">Og title</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inp_og_title" name="og_title" dmx-bind:value="conn_single_seo.data.query.og_title" aria-describedby="inp_og_title_help" placeholder="Enter Og title">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <label for="inp_og_type" class="col-sm-2 col-form-label">Og type</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inp_og_type" name="og_type" dmx-bind:value="conn_single_seo.data.query.og_type" aria-describedby="inp_og_type_help" placeholder="Enter Og type">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <label for="inp_og_description" class="col-sm-2 col-form-label">Og description</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inp_og_description" name="og_description" dmx-bind:value="conn_single_seo.data.query.og_description" aria-describedby="inp_og_description_help" placeholder="Enter Og description">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <label for="inp_og_image" class="col-sm-2 col-form-label">Og image</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inp_og_image" name="og_image" dmx-bind:value="conn_single_seo.data.query.og_image" aria-describedby="inp_og_image_help" placeholder="Enter Og image">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <label for="inp_og_sitename" class="col-sm-2 col-form-label">Og sitename</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inp_og_sitename" name="og_sitename" dmx-bind:value="conn_single_seo.data.query.og_sitename" aria-describedby="inp_og_sitename_help" placeholder="Enter Og sitename">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <label for="inp_twitter_title" class="col-sm-2 col-form-label">Twitter title</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inp_twitter_title" name="twitter_title" dmx-bind:value="conn_single_seo.data.query.twitter_title" aria-describedby="inp_twitter_title_help" placeholder="Enter Twitter title">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <label for="inp_twitter_description" class="col-sm-2 col-form-label">Twitter description</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inp_twitter_description" name="twitter_description" dmx-bind:value="conn_single_seo.data.query.twitter_description" aria-describedby="inp_twitter_description_help" placeholder="Enter Twitter description">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <label for="inp_twitter_image" class="col-sm-2 col-form-label">Twitter image</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inp_twitter_image" name="twitter_image" dmx-bind:value="conn_single_seo.data.query.twitter_image" aria-describedby="inp_twitter_image_help" placeholder="Enter Twitter image">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <label for="inp_twitter_sitename" class="col-sm-2 col-form-label">Twitter sitename</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inp_twitter_sitename" name="twitter_sitename" dmx-bind:value="conn_single_seo.data.query.twitter_sitename" aria-describedby="inp_twitter_sitename_help" placeholder="Enter Twitter sitename">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <label for="inp_twitter_creator" class="col-sm-2 col-form-label">Twitter creator</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inp_twitter_creator" name="twitter_creator" dmx-bind:value="conn_single_seo.data.query.twitter_creator" aria-describedby="inp_twitter_creator_help" placeholder="Enter Twitter creator">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <label for="inp_twitter_url" class="col-sm-2 col-form-label">Twitter url</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inp_twitter_url" name="twitter_url" dmx-bind:value="conn_single_seo.data.query.twitter_url" aria-describedby="inp_twitter_url_help" placeholder="Enter Twitter url">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <label for="inp_og_url" class="col-sm-2 col-form-label">Og url</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inp_og_url" name="og_url" dmx-bind:value="conn_single_seo.data.query.og_url" aria-describedby="inp_og_url_help" placeholder="Enter Og url">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <div class="col-sm-2">&nbsp;</div>
+                                    <div class="col-sm-10">
+                                        <button type="submit" class="btn btn-primary" dmx-bind:value="conn_single_seo.data.query.Save" dmx-bind:disabled="state.executing">Save <span class="spinner-border spinner-border-sm" role="status" dmx-show="state.executing"></span></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<dmx-serverconnect id="conn_single_seo" url="/api/admin/seo/read"></dmx-serverconnect>
 <dmx-serverconnect id="conn_seo" url="/api/admin/seo/search" dmx-param:filter="id_filter.value"></dmx-serverconnect>
 <div class="container-fluid">
     <div class="row">
@@ -12,6 +158,7 @@
                 <table class="table table-striped table-bordered table-hover table-sm">
                     <thead>
                         <tr>
+                            <th scope="row">Header</th>
                             <th>Pagename</th>
                             <th>Description</th>
                             <th>Keywords</th>
@@ -34,6 +181,7 @@
                     </thead>
                     <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="conn_seo.data.query" id="tableRepeat1">
                         <tr>
+                            <td><button id="btn_edit" class="btn bg-success text-white btn-success w-100" dmx-on:click="conn_single_seo.load({seo_id: seo_id});modal_edit.show()"><i class="far fa-edit fa-lg"></i></button></td>
                             <td dmx-text="pagename"></td>
                             <td dmx-text="description"></td>
                             <td dmx-text="keywords"></td>
@@ -56,6 +204,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
+                            <td>Cell</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
