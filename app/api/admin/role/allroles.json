@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "",
+        "module": "auth",
+        "action": "restrict",
+        "options": {
+          "provider": "commweb",
+          "permissions": [
+            "Administrator"
+          ],
+          "loginUrl": "/login",
+          "forbiddenUrl": "/login"
+        }
+      },
+      {
+        "name": "query",
+        "module": "dbconnector",
+        "action": "select",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "select",
+            "columns": [
+              {
+                "table": "authroles",
+                "column": "*"
+              }
+            ],
+            "params": [],
+            "table": {
+              "name": "authroles"
+            },
+            "primary": "authrole_id",
+            "joins": [],
+            "orders": [
+              {
+                "table": "authroles",
+                "column": "rolename",
+                "direction": "ASC"
+              }
+            ],
+            "query": "select * from `authroles` order by `rolename` ASC"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "number",
+            "name": "authrole_id"
+          },
+          {
+            "type": "text",
+            "name": "role"
+          },
+          {
+            "type": "text",
+            "name": "rolename"
+          }
+        ],
+        "outputType": "array"
+      }
+    ]
+  }
+}

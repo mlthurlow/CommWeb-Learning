@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "options": {
+      "linkedFile": "/views/pagecontent.ejs",
+      "linkedForm": "form_upload"
+    },
+    "$_POST": [
+      {
+        "type": "number",
+        "fieldName": "pagecontent_id",
+        "name": "pagecontent_id"
+      },
+      {
+        "type": "file",
+        "fieldName": "file",
+        "multiple": true,
+        "name": "file",
+        "sub": [
+          {
+            "name": "name",
+            "type": "text"
+          },
+          {
+            "name": "type",
+            "type": "text"
+          },
+          {
+            "name": "size",
+            "type": "number"
+          },
+          {
+            "name": "error",
+            "type": "text"
+          }
+        ],
+        "outputType": "array"
+      },
+      {
+        "type": "array",
+        "name": "record",
+        "sub": [
+          {
+            "type": "number",
+            "name": "$_POST"
+          },
+          {
+            "type": "text",
+            "name": "name"
+          },
+          {
+            "type": "number",
+            "name": "creator_id"
+          },
+          {
+            "type": "number",
+            "name": "identity"
+          }
+        ]
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "identity",
+        "module": "auth",
+        "action": "identify",
+        "options": {
+          "provider": "commweb"
+        },
+        "output": true,
+        "meta": []
+      },
+      {
+        "name": "upload",
+        "module": "upload",
+        "action": "upload",
+        "options": {
+          "fields": "{{$_POST.file}}",
+          "path": "/public/uploads/pageimages/{{$_POST.pagecontent_id}}",
+          "replaceSpace": true,
+          "replaceDiacritics": true,
+          "asciiOnly": true
+        },
+        "meta": [
+          {
+            "name": "name",
+            "type": "text"
+          },
+          {
+            "name": "path",
+            "type": "text"
+          },
+          {
+            "name": "url",
+            "type": "text"
+          },
+          {
+            "name": "type",
+            "type": "text"
+          },
+          {
+            "name": "size",
+            "type": "text"
+          },
+          {
+            "name": "error",
+            "type": "number"
+          }
+        ],
+        "outputType": "array",
+        "output": true
+      },
+      {
+        "name": "repeat",
+        "module": "core",
+        "action": "repeat",
+        "options": {
+          "repeat": "{{upload}}",
+          "outputFields": [],
+          "exec": {
+            "steps": [
+              {
+                "name": "image",
+                "module": "image",
+                "action": "load",
+                "options": {
+                  "path": "{{path}}"
+                },
+                "outputType": "object",
+                "meta": [
+                  {
+                    "name": "width",
+                    "type": "number"
+                  },
+                  {
+                    "name": "height",
+                    "type": "number"
+                  }
+                ]
+              },
+              {
+                "name": "",
+                "module": "image",
+                "action": "resize",
+                "options": {
+                  "instance": "image",
+                  "width": 640,
+                  "upscale": true
+                }
+              },
+              {
+                "name": "newImage",
+                "module": "image",
+                "action": "save",
+                "options": {
+                  "instance": "image",
+                  "path": "/public/uploads/pageimages/{{$_POST.pagecontent_id}}/640",
+                  "format": "auto"
+                },
+                "output": true
+              },
+              {
+                "name": "",
+                "module": "image",
+                "action": "cover",
+                "options": {
+                  "instance": "image",
+                  "width": 160,
+                  "height": 80
+                }
+              },
+              {
+                "name": "newImage_copy",
+                "module": "image",
+                "action": "save",
+                "options": {
+                  "instance": "image",
+                  "path": "/public/uploads/pageimages/{{$_POST.pagecontent_id}}/cover",
+                  "format": "auto"
+                },
+                "output": true
+              },
+              {
+                "name": "insert",
+                "module": "dbupdater",
+                "action": "insert",
+                "options": {
+                  "connection": "db",
+                  "sql": {
+                    "type": "insert",
+                    "values": [
+                      {
+                        "table": "pagecontent_images",
+                        "column": "pagecontent_id",
+                        "type": "number",
+                        "value": "{{$_POST.pagecontent_id}}"
+                      },
+                      {
+                        "table": "pagecontent_images",
+                        "column": "imagelink",
+                        "type": "text",
+                        "value": "{{name}}"
+                      },
+                      {
+                        "table": "pagecontent_images",
+                        "column": "creator_id",
+                        "type": "number",
+                        "value": "{{identity}}"
+                      }
+                    ],
+                    "table": "pagecontent_images",
+                    "returning": "image_id",
+                    "query": "insert into `pagecontent_images` (`creator_id`, `imagelink`, `pagecontent_id`) values (?, ?, ?) returning `image_id`",
+                    "params": [
+                      {
+                        "name": ":P1",
+                        "type": "expression",
+                        "value": "{{$_POST.pagecontent_id}}",
+                        "test": ""
+                      },
+                      {
+                        "name": ":P2",
+                        "type": "expression",
+                        "value": "{{name}}",
+                        "test": ""
+                      },
+                      {
+                        "name": ":P3",
+                        "type": "expression",
+                        "value": "{{identity}}",
+                        "test": ""
+                      }
+                    ]
+                  }
+                },
+                "meta": [
+                  {
+                    "name": "identity",
+                    "type": "text"
+                  },
+                  {
+                    "name": "affected",
+                    "type": "number"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "name": "$index",
+            "type": "number"
+          },
+          {
+            "name": "$number",
+            "type": "number"
+          },
+          {
+            "name": "$name",
+            "type": "text"
+          },
+          {
+            "name": "$value",
+            "type": "object"
+          },
+          {
+            "name": "name",
+            "type": "text"
+          },
+          {
+            "name": "path",
+            "type": "text"
+          },
+          {
+            "name": "url",
+            "type": "text"
+          },
+          {
+            "name": "type",
+            "type": "text"
+          },
+          {
+            "name": "size",
+            "type": "text"
+          },
+          {
+            "name": "error",
+            "type": "number"
+          }
+        ],
+        "outputType": "array"
+      }
+    ]
+  },
+  "usedModules": {
+    "sharp": "^0.29.3"
+  }
+}

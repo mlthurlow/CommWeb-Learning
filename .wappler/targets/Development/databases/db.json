@@ -285,205 +285,316 @@
             }
           }
         },
-        "db": {},
-        "db_changes": [
-          {
-            "recid": 6,
-            "description": "Home",
-            "__orgRec": {
-              "seo_id": 6,
-              "pagename": "/",
-              "description": "Visit Bedford",
-              "keywords": "Visit Bedford",
-              "pagetitle": "Visit Bedford",
-              "canonical": "https://visitbedford.com//",
-              "robots": null,
-              "og_title": null,
-              "og_type": "Website",
-              "og_description": "Visit Bedford",
-              "og_image": "https://visitbedford.com/assests/images/defaultimage.png",
-              "og_sitename": "Visit Bedford",
-              "twitter_title": "Visit Bedford",
-              "twitter_description": "Visit Bedford",
-              "twitter_image": "https://visitbedford.com/assests/images/defaultimage.png",
-              "twitter_sitename": "Visit Bedford",
-              "twitter_creator": null,
-              "twitter_url": "https://visitbedford.com//",
-              "og_url": "https://visitbedford.com//",
-              "recid": 6
+        "db": {}
+      },
+      "authroles": {
+        "columns": {
+          "authrole_id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "unique": false,
+              "nullable": false
             }
           },
-          {
-            "recid": 7,
-            "description": "Login",
-            "__orgRec": {
-              "seo_id": 7,
-              "pagename": "/login",
-              "description": "Visit Bedford",
-              "keywords": "Visit Bedford",
-              "pagetitle": "Visit Bedford",
-              "canonical": "https://visitbedford.com//login",
-              "robots": null,
-              "og_title": null,
-              "og_type": "Website",
-              "og_description": "Visit Bedford",
-              "og_image": "https://visitbedford.com/assests/images/defaultimage.png",
-              "og_sitename": "Visit Bedford",
-              "twitter_title": "Visit Bedford",
-              "twitter_description": "Visit Bedford",
-              "twitter_image": "https://visitbedford.com/assests/images/defaultimage.png",
-              "twitter_sitename": "Visit Bedford",
-              "twitter_creator": null,
-              "twitter_url": "https://visitbedford.com//login",
-              "og_url": "https://visitbedford.com//login",
-              "recid": 7
+          "role": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
             }
           },
-          {
-            "recid": 8,
-            "description": "Register",
-            "__orgRec": {
-              "seo_id": 8,
-              "pagename": "/register",
-              "description": "Visit Bedford",
-              "keywords": "Visit Bedford",
-              "pagetitle": "Visit Bedford",
-              "canonical": "https://visitbedford.com//register",
-              "robots": null,
-              "og_title": null,
-              "og_type": "Website",
-              "og_description": "Visit Bedford",
-              "og_image": "https://visitbedford.com/assests/images/defaultimage.png",
-              "og_sitename": "Visit Bedford",
-              "twitter_title": "Visit Bedford",
-              "twitter_description": "Visit Bedford",
-              "twitter_image": "https://visitbedford.com/assests/images/defaultimage.png",
-              "twitter_sitename": "Visit Bedford",
-              "twitter_creator": null,
-              "twitter_url": "https://visitbedford.com//register",
-              "og_url": "https://visitbedford.com//register",
-              "recid": 8
+          "rolename": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
             }
-          },
-          {
-            "seo_id": 1,
-            "pagename": "/",
-            "description": "Visit Bedford",
-            "keywords": "Visit Bedford",
-            "pagetitle": "Visit Bedford",
-            "canonical": "https://visitbedford.com//",
-            "robots": null,
-            "og_title": null,
-            "og_type": "Website",
-            "og_description": "Visit Bedford",
-            "og_image": "https://visitbedford.com/assests/images/defaultimage.png",
-            "og_sitename": "Visit Bedford",
-            "twitter_title": "Visit Bedford",
-            "twitter_description": "Visit Bedford",
-            "twitter_image": "https://visitbedford.com/assests/images/defaultimage.png",
-            "twitter_sitename": "Visit Bedford",
-            "twitter_creator": null,
-            "twitter_url": "https://visitbedford.com//",
-            "og_url": "https://visitbedford.com//",
-            "recid": 1,
-            "__delRec": true
-          },
-          {
-            "seo_id": 2,
-            "pagename": "/api/registration/whoami",
-            "description": "Visit Bedford",
-            "keywords": "Visit Bedford",
-            "pagetitle": "Visit Bedford",
-            "canonical": "https://visitbedford.com//api/registration/whoami",
-            "robots": null,
-            "og_title": null,
-            "og_type": "Website",
-            "og_description": "Visit Bedford",
-            "og_image": "https://visitbedford.com/assests/images/defaultimage.png",
-            "og_sitename": "Visit Bedford",
-            "twitter_title": "Visit Bedford",
-            "twitter_description": "Visit Bedford",
-            "twitter_image": "https://visitbedford.com/assests/images/defaultimage.png",
-            "twitter_sitename": "Visit Bedford",
-            "twitter_creator": null,
-            "twitter_url": "https://visitbedford.com//api/registration/whoami",
-            "og_url": "https://visitbedford.com//api/registration/whoami",
-            "recid": 2,
-            "__delRec": true
-          },
-          {
-            "seo_id": 3,
-            "pagename": "/",
-            "description": "Visit Bedford",
-            "keywords": "Visit Bedford",
-            "pagetitle": "Visit Bedford",
-            "canonical": "https://visitbedford.com//",
-            "robots": null,
-            "og_title": null,
-            "og_type": "Website",
-            "og_description": "Visit Bedford",
-            "og_image": "https://visitbedford.com/assests/images/defaultimage.png",
-            "og_sitename": "Visit Bedford",
-            "twitter_title": "Visit Bedford",
-            "twitter_description": "Visit Bedford",
-            "twitter_image": "https://visitbedford.com/assests/images/defaultimage.png",
-            "twitter_sitename": "Visit Bedford",
-            "twitter_creator": null,
-            "twitter_url": "https://visitbedford.com//",
-            "og_url": "https://visitbedford.com//",
-            "recid": 3,
-            "__delRec": true
-          },
-          {
-            "seo_id": 4,
-            "pagename": "/login",
-            "description": "Visit Bedford",
-            "keywords": "Visit Bedford",
-            "pagetitle": "Visit Bedford",
-            "canonical": "https://visitbedford.com//login",
-            "robots": null,
-            "og_title": null,
-            "og_type": "Website",
-            "og_description": "Visit Bedford",
-            "og_image": "https://visitbedford.com/assests/images/defaultimage.png",
-            "og_sitename": "Visit Bedford",
-            "twitter_title": "Visit Bedford",
-            "twitter_description": "Visit Bedford",
-            "twitter_image": "https://visitbedford.com/assests/images/defaultimage.png",
-            "twitter_sitename": "Visit Bedford",
-            "twitter_creator": null,
-            "twitter_url": "https://visitbedford.com//login",
-            "og_url": "https://visitbedford.com//login",
-            "recid": 4,
-            "__delRec": true
-          },
-          {
-            "seo_id": 5,
-            "pagename": "/",
-            "description": "Visit Bedford",
-            "keywords": "Visit Bedford",
-            "pagetitle": "Visit Bedford",
-            "canonical": "https://visitbedford.com//",
-            "robots": null,
-            "og_title": null,
-            "og_type": "Website",
-            "og_description": "Visit Bedford",
-            "og_image": "https://visitbedford.com/assests/images/defaultimage.png",
-            "og_sitename": "Visit Bedford",
-            "twitter_title": "Visit Bedford",
-            "twitter_description": "Visit Bedford",
-            "twitter_image": "https://visitbedford.com/assests/images/defaultimage.png",
-            "twitter_sitename": "Visit Bedford",
-            "twitter_creator": null,
-            "twitter_url": "https://visitbedford.com//",
-            "og_url": "https://visitbedford.com//",
-            "recid": 5,
-            "__delRec": true
           }
-        ],
-        "status": {
-          "data_modified": true
+        },
+        "db": {}
+      },
+      "pagecontent": {
+        "columns": {
+          "pagecontent_id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "title": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "description": {
+            "db": {
+              "type": "text",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "online": {
+            "db": {
+              "type": "boolean",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "date_created": {
+            "db": {
+              "type": "datetime",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "date_edited": {
+            "db": {
+              "type": "datetime",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "event_start": {
+            "db": {
+              "type": "datetime",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "lat": {
+            "db": {
+              "type": "float",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "long": {
+            "db": {
+              "type": "float",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "geo": {
+            "db": {
+              "type": "boolean",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "pagetype": {
+            "db": {
+              "type": "string",
+              "maxLength": 1,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "event_end": {
+            "db": {
+              "type": "datetime",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "creator_id": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "last_editor_id": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          }
+        },
+        "db": {},
+        "sub": {
+          "pagecontent_images": "pagecontent_id",
+          "pagecontent_comments": "pagecontent_id"
         }
+      },
+      "pagecontent_images": {
+        "columns": {
+          "image_id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "pagecontent_id": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "pagecontent_id",
+              "inTable": "pagecontent",
+              "referenceType": "integer",
+              "onUpdate": "CASCADE",
+              "onDelete": "CASCADE"
+            }
+          },
+          "imagelink": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "creator_id": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "order": {
+            "db": {
+              "type": "integer",
+              "default": "0",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          }
+        },
+        "db": {},
+        "tablePrefix": "pagecontent_",
+        "parent": "pagecontent"
+      },
+      "pagecontent_comments": {
+        "columns": {
+          "comment_id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "pagecontent_id": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "pagecontent_id",
+              "inTable": "pagecontent",
+              "referenceType": "integer",
+              "onUpdate": "CASCADE",
+              "onDelete": "CASCADE"
+            }
+          },
+          "comment": {
+            "db": {
+              "type": "text",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "comment_date": {
+            "db": {
+              "type": "datetime",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "comment_user_id": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "authorized": {
+            "db": {
+              "type": "boolean",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          }
+        },
+        "db": {},
+        "tablePrefix": "pagecontent_",
+        "parent": "pagecontent",
+        "sub": {
+          "pagecontent_comment_reaction": "comment_id"
+        }
+      },
+      "pagecontent_comment_reaction": {
+        "columns": {
+          "comment_id": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "comment_id",
+              "inTable": "pagecontent_comments",
+              "referenceType": "integer",
+              "onUpdate": "CASCADE",
+              "onDelete": "CASCADE"
+            }
+          },
+          "reaction": {
+            "db": {
+              "type": "string",
+              "maxLength": 1,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "reaction_user_id": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          }
+        },
+        "db": {},
+        "tablePrefix": "pagecontent_comment_",
+        "multiReference": true,
+        "parent": "pagecontent_comments"
       }
     },
     "views": {}

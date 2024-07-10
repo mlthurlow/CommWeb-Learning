@@ -29,7 +29,7 @@
         }
       },
       {
-        "name": "delete",
+        "name": "delete_user",
         "module": "dbupdater",
         "action": "delete",
         "options": {
@@ -57,6 +57,53 @@
             },
             "returning": "user_id",
             "query": "delete from `user` where `user_id` = ?",
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{$_GET.user_id}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "name": "delete_assoc_roles",
+        "module": "dbupdater",
+        "action": "delete",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "delete",
+            "table": "role",
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "role_user_id",
+                  "field": "role_user_id",
+                  "type": "string",
+                  "operator": "equal",
+                  "value": "{{$_GET.user_id}}",
+                  "data": {
+                    "column": "role_user_id"
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "returning": "role_id",
+            "query": "delete from `role` where `role_user_id` = ?",
             "params": [
               {
                 "operator": "equal",

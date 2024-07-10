@@ -1,0 +1,215 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "pagecontent_id"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "",
+        "module": "auth",
+        "action": "restrict",
+        "options": {
+          "provider": "commweb",
+          "permissions": [
+            "Administrator"
+          ],
+          "loginUrl": "/login",
+          "forbiddenUrl": "/login"
+        }
+      },
+      {
+        "name": "query",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "select",
+            "columns": [
+              {
+                "table": "pagecontent",
+                "column": "*"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{$_GET.pagecontent_id}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "pagecontent"
+            },
+            "primary": "pagecontent_id",
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "pagecontent.pagecontent_id",
+                  "field": "pagecontent.pagecontent_id",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{$_GET.pagecontent_id}}",
+                  "data": {
+                    "table": "pagecontent",
+                    "column": "pagecontent_id",
+                    "type": "number",
+                    "columnObj": {
+                      "type": "increments",
+                      "primary": true,
+                      "unique": false,
+                      "nullable": false,
+                      "name": "pagecontent_id"
+                    }
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select * from `pagecontent` where `pagecontent`.`pagecontent_id` = ?",
+            "sub": {
+              "images": {
+                "type": "select",
+                "table": {
+                  "name": "pagecontent_images",
+                  "alias": "images"
+                },
+                "key": "pagecontent_id",
+                "columns": [
+                  {
+                    "table": "images",
+                    "column": "image_id"
+                  },
+                  {
+                    "table": "images",
+                    "column": "pagecontent_id"
+                  },
+                  {
+                    "table": "images",
+                    "column": "imagelink"
+                  },
+                  {
+                    "table": "images",
+                    "column": "creator_id"
+                  },
+                  {
+                    "table": "images",
+                    "column": "order"
+                  }
+                ],
+                "params": [],
+                "primary": "image_id",
+                "joins": [],
+                "query": "select `image_id`, `pagecontent_id`, `imagelink`, `creator_id`, `order` from `pagecontent_images` as `images` order by `order` ASC",
+                "orders": [
+                  {
+                    "table": "images",
+                    "column": "order",
+                    "direction": "ASC"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "number",
+            "name": "pagecontent_id"
+          },
+          {
+            "type": "text",
+            "name": "title"
+          },
+          {
+            "type": "text",
+            "name": "description"
+          },
+          {
+            "type": "boolean",
+            "name": "online"
+          },
+          {
+            "type": "datetime",
+            "name": "date_created"
+          },
+          {
+            "type": "datetime",
+            "name": "date_edited"
+          },
+          {
+            "type": "datetime",
+            "name": "event_start"
+          },
+          {
+            "type": "number",
+            "name": "lat"
+          },
+          {
+            "type": "number",
+            "name": "long"
+          },
+          {
+            "type": "boolean",
+            "name": "geo"
+          },
+          {
+            "type": "text",
+            "name": "pagetype"
+          },
+          {
+            "type": "datetime",
+            "name": "event_end"
+          },
+          {
+            "type": "number",
+            "name": "creator_id"
+          },
+          {
+            "type": "number",
+            "name": "last_editor_id"
+          },
+          {
+            "name": "images",
+            "type": "array",
+            "sub": [
+              {
+                "type": "number",
+                "name": "image_id"
+              },
+              {
+                "type": "number",
+                "name": "pagecontent_id"
+              },
+              {
+                "type": "text",
+                "name": "imagelink"
+              },
+              {
+                "type": "number",
+                "name": "creator_id"
+              },
+              {
+                "type": "number",
+                "name": "order"
+              }
+            ]
+          }
+        ],
+        "outputType": "object"
+      }
+    ]
+  }
+}

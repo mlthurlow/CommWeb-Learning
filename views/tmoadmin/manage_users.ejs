@@ -1,9 +1,58 @@
-<!-- Wappler include head-page="layouts/admin" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="manage_users" appConnect="local" components="{dmxStateManagement:{},dmxBootstrap5TableGenerator:{},dmxFormatter:{},dmxTyped:{},dmxBootstrap5Modal:{},dmxNotifications:{}}" -->
+<!-- Wappler include head-page="layouts/admin" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="manage_users" appConnect="local" components="{dmxStateManagement:{},dmxBootstrap5TableGenerator:{},dmxFormatter:{},dmxTyped:{},dmxBootstrap5Modal:{},dmxNotifications:{},dmxBootbox5:{}}" -->
+<dmx-serverconnect id="conn_allroles" url="/api/admin/role/allroles"></dmx-serverconnect>
+
+
 <dmx-notifications id="notifies1"></dmx-notifications>
 <dmx-serverconnect id="conn_single_user" url="/api/admin/user/read" noload="true"></dmx-serverconnect>
 
 <meta name="ac:route" content="/tmoadmin/manage_users">
 <dmx-serverconnect id="conn_users" url="/api/admin/user/search" dmx-param:filter="input1.value"></dmx-serverconnect>
+<dmx-serverconnect id="conn_userrole" url="/api/admin/role/userroles" noload="true"></dmx-serverconnect>
+<div class="modal" id="modal_roles" is="dmx-bs5-modal" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">User {{conn_single_user.data.query.first_name+' '+conn_single_user.data.query.last_name}} Roles</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover table-sm">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%">Role</th>
+                                <th>Rolename</th>
+                                <th style="width: 10%" scope="row"></th>
+                            </tr>
+                        </thead>
+                        <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="conn_userrole.data.query" id="roles_table_repeat">
+                            <tr>
+                                <td dmx-text="role"></td>
+                                <td dmx-text="rolename"></td>
+                                <td>
+                                    <button id="btn_delete_role" class="btn btn-danger w-100" dmx-on:click="run([{serverConnect:{name:'sc',outputType:'object',url:'/api/admin/role/delete',site:'Community Web',params:{role_id:`role_id`}}},{run:{outputType:'text',action:`conn_userrole.load({user_id: conn_single_user.data.query.user_id})`}}])">
+                                        <i class="fas fa-trash fa-lg"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <form id="form_add_role" is="dmx-serverconnect-form" method="post" action="/api/admin/role/addroletouser" dmx-on:success="notifies1.success('Role Added!');conn_userrole.load({user_id: conn_single_user.data.query.user_id})" dmx-on:invalid="notifies1.warning('Role already exists.')">
+                    <input id="role_user_id" name="role_user_id" class="form-control" dmx-bind:value="conn_userrole.data.query[0].role_user_id" type="hidden">
+                    <div class="form-group mb-3">
+
+                        <label for="id_role" class="form-label">Select Additional Role:</label>
+                        <select id="id_role" class="form-select" dmx-bind:options="conn_allroles.data.query" optiontext="rolename" optionvalue="role" name="role">
+                        </select>
+                    </div><button id="add_role" class="btn btn-success" type="submit">Add Role</button>
+                </form>
+            </div>
+            <div class="modal-footer text-black">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal" id="modal_edit_user" is="dmx-bs5-modal" tabindex="-1" dmx-on:hide-bs-modal="serverconnectform1.reset()">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -66,7 +115,7 @@
                 <label for="input1" class="col-sm-2 col-form-label">Search</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="input1" name="input1" aria-describedby="input1_help" placeholder="Enter keyword">
-                    <small id="input1_help" class="form-text text-muted">Your input is very valuable.</small>
+                    <small id="input1_help" class="form-text text-muted">Simple search term in First Name, Last Name or email.</small>
                 </div>
             </div>
         </div>
@@ -89,18 +138,18 @@
                             <th>Validated</th>
                         </tr>
                     </thead>
-                    <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="conn_users.data.query" id="tableRepeat2">
+                    <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="conn_users.data.query" id="table_users_repeat">
                         <tr>
                             <td>
                                 <button id="btn_edit" class="btn btn-success text-white w-100" dmx-on:click="conn_single_user.load({user_id: user_id});modal_edit_user.show()">
                                     <i class="fas fa-edit fa-lg"></i></button>
                             </td>
                             <td>
-                                <button id="btn2" class="btn btn-warning text-white w-100">
+                                <button id="btn_roles" class="btn btn-warning text-white w-100" dmx-on:click="run([{run:{outputType:'text',action:`conn_single_user.load({user_id: user_id})`}},{run:{outputType:'text',action:`conn_userrole.load({user_id: user_id})`}},{run:{outputType:'text',action:`modal_roles.show()`}}])">
                                     <i class="fas fa-user-cog fa-lg"></i></button>
                             </td>
                             <td>
-                                <button id="btn3" class="btn btn-danger text-white w-100">
+                                <button id="btn_delete" class="btn btn-danger text-white w-100" dmx-on:click="run([{run:{outputType:'text',action:`conn_single_user.load({user_id: user_id})`}},{'bootbox.confirm':{name:'confirm_delete_user',message:`\'Do you want to delete this user: \'+first_name+\' \'+last_name+\'?\'`,title:'Confirm Delete?',buttons:{confirm:{label:'Delete'},cancel:{label:'Cancel'}},then:{steps:[{comment:{msg:'If the user confirms they want to delete.'}},{serverConnect:{name:'sc',outputType:'object',url:'/api/admin/user/delete',site:'Community Web',params:{user_id:`conn_single_user.data.query.user_id`}}},{run:{name:'notify_success',outputType:'text',action:`notifies1.success(\'User Deleted\')`}},{run:{name:'refresh_form',outputType:'text',action:`conn_users.load({})`}}]}}}])">
                                     <i class="fas fa-trash fa-lg"></i></button>
                             </td>
                             <td dmx-text="user_id"></td>

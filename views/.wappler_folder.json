@@ -18,5 +18,9 @@
   "admin.ejs": {
     "layoutPage": "main",
     "description": ""
+  },
+  "pagecontent.ejs": {
+    "layoutPage": "admin",
+    "description": ""
   }
 }

@@ -1,0 +1,130 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "",
+        "module": "auth",
+        "action": "restrict",
+        "options": {
+          "provider": "commweb",
+          "permissions": [
+            "Administrator"
+          ],
+          "loginUrl": "/login",
+          "forbiddenUrl": "/login"
+        }
+      },
+      {
+        "name": "query",
+        "module": "dbconnector",
+        "action": "select",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "select",
+            "columns": [
+              {
+                "table": "authroles",
+                "column": "*"
+              }
+            ],
+            "params": [],
+            "table": {
+              "name": "authroles"
+            },
+            "primary": "authrole_id",
+            "joins": [],
+            "orders": [
+              {
+                "table": "authroles",
+                "column": "rolename",
+                "direction": "ASC",
+                "recid": 1
+              }
+            ],
+            "query": "select * from `authroles` where `authroles`.`role` <> ? and `authroles`.`role` <> ? order by `rolename` ASC",
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "authroles.role",
+                  "field": "authroles.role",
+                  "type": "string",
+                  "operator": "not_equal",
+                  "value": "A",
+                  "data": {
+                    "table": "authroles",
+                    "column": "role",
+                    "type": "text",
+                    "columnObj": {
+                      "type": "string",
+                      "maxLength": 255,
+                      "primary": false,
+                      "unique": false,
+                      "nullable": true,
+                      "name": "role"
+                    }
+                  },
+                  "operation": "<>",
+                  "table": "authroles"
+                },
+                {
+                  "id": "authroles.role",
+                  "field": "authroles.role",
+                  "type": "string",
+                  "operator": "not_equal",
+                  "value": "T",
+                  "data": {
+                    "table": "authroles",
+                    "column": "role",
+                    "type": "text",
+                    "columnObj": {
+                      "type": "string",
+                      "maxLength": 255,
+                      "primary": false,
+                      "unique": false,
+                      "nullable": true,
+                      "name": "role"
+                    }
+                  },
+                  "operation": "<>",
+                  "table": "authroles"
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            }
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "number",
+            "name": "authrole_id"
+          },
+          {
+            "type": "text",
+            "name": "role"
+          },
+          {
+            "type": "text",
+            "name": "rolename"
+          }
+        ],
+        "outputType": "array"
+      }
+    ]
+  }
+}

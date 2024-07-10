@@ -40,6 +40,11 @@
       "path": "/tmoadmin/manage_users",
       "page": "tmoadmin/manage_users",
       "layout": "admin"
+    },
+    {
+      "path": "/pagecontent",
+      "page": "pagecontent",
+      "layout": "admin"
     }
   ],
   "layouts": {

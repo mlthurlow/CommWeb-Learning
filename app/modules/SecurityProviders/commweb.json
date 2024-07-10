@@ -35,6 +35,72 @@
             "value": "M"
           }
         ]
+      },
+      "Business": {
+        "table": "role",
+        "identity": "role_user_id",
+        "conditions": [
+          {
+            "column": "role",
+            "operator": "=",
+            "value": "B"
+          }
+        ]
+      },
+      "Events": {
+        "table": "role",
+        "identity": "role_user_id",
+        "conditions": [
+          {
+            "column": "role",
+            "operator": "=",
+            "value": "E"
+          }
+        ]
+      },
+      "History": {
+        "table": "role",
+        "identity": "role_user_id",
+        "conditions": [
+          {
+            "column": "role",
+            "operator": "=",
+            "value": "H"
+          }
+        ]
+      },
+      "Attractions": {
+        "table": "role",
+        "identity": "role_user_id",
+        "conditions": [
+          {
+            "column": "role",
+            "operator": "=",
+            "value": "L"
+          }
+        ]
+      },
+      "E-Commerce": {
+        "table": "role",
+        "identity": "role_user_id",
+        "conditions": [
+          {
+            "column": "role",
+            "operator": "=",
+            "value": "T"
+          }
+        ]
+      },
+      "Buy/Sell": {
+        "table": "role",
+        "identity": "role_user_id",
+        "conditions": [
+          {
+            "column": "role",
+            "operator": "=",
+            "value": "S"
+          }
+        ]
       }
     }
   },

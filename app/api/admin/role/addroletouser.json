@@ -1,0 +1,229 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ],
+    "$_POST": [
+      {
+        "type": "text",
+        "name": "role"
+      },
+      {
+        "type": "text",
+        "name": "role_user_id"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "",
+        "module": "auth",
+        "action": "restrict",
+        "options": {
+          "provider": "commweb",
+          "permissions": [
+            "Administrator"
+          ],
+          "loginUrl": "/login",
+          "forbiddenUrl": "/login"
+        }
+      },
+      {
+        "name": "user_role_exists",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "select",
+            "columns": [
+              {
+                "table": "role",
+                "column": "*"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{$_POST.role_user_id}}",
+                "test": ""
+              },
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P2",
+                "value": "{{$_POST.role}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "role"
+            },
+            "primary": "role_id",
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "role.role_user_id",
+                  "field": "role.role_user_id",
+                  "type": "string",
+                  "operator": "equal",
+                  "value": "{{$_POST.role_user_id}}",
+                  "data": {
+                    "table": "role",
+                    "column": "role_user_id",
+                    "type": "text",
+                    "columnObj": {
+                      "type": "string",
+                      "maxLength": 255,
+                      "primary": false,
+                      "unique": false,
+                      "nullable": true,
+                      "name": "role_user_id"
+                    }
+                  },
+                  "operation": "="
+                },
+                {
+                  "id": "role.role",
+                  "field": "role.role",
+                  "type": "string",
+                  "operator": "equal",
+                  "value": "{{$_POST.role}}",
+                  "data": {
+                    "table": "role",
+                    "column": "role",
+                    "type": "text",
+                    "columnObj": {
+                      "type": "string",
+                      "maxLength": 1,
+                      "primary": false,
+                      "unique": false,
+                      "nullable": true,
+                      "name": "role"
+                    }
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select * from `role` where `role`.`role_user_id` = ? and `role`.`role` = ?"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "number",
+            "name": "role_id"
+          },
+          {
+            "type": "text",
+            "name": "role_user_id"
+          },
+          {
+            "type": "text",
+            "name": "role"
+          }
+        ],
+        "outputType": "object"
+      },
+      {
+        "name": "",
+        "module": "core",
+        "action": "condition",
+        "options": {
+          "if": "{{user_role_exists}}",
+          "then": {
+            "steps": [
+              {
+                "name": "",
+                "options": {
+                  "comment": "Already has role"
+                }
+              },
+              {
+                "name": "invalid",
+                "module": "core",
+                "action": "response",
+                "options": {
+                  "status": 400,
+                  "data": "invalid"
+                }
+              }
+            ]
+          },
+          "else": {
+            "steps": {
+              "name": "insert",
+              "module": "dbupdater",
+              "action": "insert",
+              "options": {
+                "connection": "db",
+                "sql": {
+                  "type": "insert",
+                  "values": [
+                    {
+                      "table": "role",
+                      "column": "role_user_id",
+                      "type": "text",
+                      "value": "{{$_POST.role_user_id}}",
+                      "recid": 1
+                    },
+                    {
+                      "table": "role",
+                      "column": "role",
+                      "type": "text",
+                      "value": "{{$_POST.role}}",
+                      "recid": 2
+                    }
+                  ],
+                  "table": "role",
+                  "returning": "role_id",
+                  "query": "insert into `role` (`role`, `role_user_id`) values (?, ?) returning `role_id`",
+                  "params": [
+                    {
+                      "name": ":P1",
+                      "type": "expression",
+                      "value": "{{$_POST.role_user_id}}",
+                      "test": ""
+                    },
+                    {
+                      "name": ":P2",
+                      "type": "expression",
+                      "value": "{{$_POST.role}}",
+                      "test": ""
+                    }
+                  ]
+                }
+              },
+              "meta": [
+                {
+                  "name": "identity",
+                  "type": "text"
+                },
+                {
+                  "name": "affected",
+                  "type": "number"
+                }
+              ]
+            }
+          }
+        },
+        "outputType": "boolean"
+      }
+    ]
+  }
+}
